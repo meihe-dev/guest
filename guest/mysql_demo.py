@@ -1,5 +1,6 @@
 from pymysql import cursors, connect
 
+
 # 连接数据库
 conn = connect(host='127.0.0.1',
                user='root',
