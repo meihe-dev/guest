@@ -26,6 +26,7 @@ SECRET_KEY = '+u5gk8q#e@#dyzd-3e&@5mkb26&3^ipr29vm71v@mn+tf770mi'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['testserver']
 
 
 # Application definition

@@ -106,7 +106,7 @@ def sign_index(request, eid):
 def sign_index_action(request, eid):
     event = get_object_or_404(Event, id=eid)
     phone = request.POST.get('phone', '')
-    print(phone)
+    # print(phone)
     result = Guest.objects.filter(phone=phone)
     if not result:
         return render(request, "sign_index.html", {"event": event,
@@ -118,8 +118,8 @@ def sign_index_action(request, eid):
                                                    "hint": "event id or phone error."})
 
     for guest in result:
-        print(guest.realname)
-        print(guest.sign)
+        # print(guest.realname)
+        # print(guest.sign)
         if guest.sign:
             return render(request, "sign_index.html", {"event": event,
                                                        "hint": "user has sign in."})
