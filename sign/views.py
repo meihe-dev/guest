@@ -95,7 +95,8 @@ def search_realname(request):
 @login_required
 def sign_index(request, eid):
     event = get_object_or_404(Event, id=eid)
-    guest_list = Guest.objects.filter(event_id__exact=eid)
+    # guest_list = Guest.objects.filter(event_id__exact=eid)
+    guest_list = Guest.objects.filter(event_id=eid)
     return render(request, "sign_index.html", {"event": event,
                                                "guests": guest_list,
                                                "guests_count": len(guest_list)})
