@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.0.1rc1 (Python 3.7.6 on win32)" generated="20201218 10:05:34.973">
+<robot generator="Robot 3.0.1rc1 (Python 3.7.6 on win32)" generated="20201218 12:43:55.439">
 <suite id="s1" name="Test" source="D:\Projects\python\guest\rf_test\test.robot">
 <test id="s1-t1" name="testcase">
 <kw name="Log" library="BuiltIn">
@@ -7,12 +7,12 @@
 <arguments>
 <arg>robot framework</arg>
 </arguments>
-<msg timestamp="20201218 10:05:35.020" level="INFO">robot framework</msg>
-<status status="PASS" starttime="20201218 10:05:35.020" endtime="20201218 10:05:35.020"></status>
+<msg timestamp="20201218 12:43:55.497" level="INFO">robot framework</msg>
+<status status="PASS" starttime="20201218 12:43:55.496" endtime="20201218 12:43:55.497"></status>
 </kw>
-<status status="PASS" starttime="20201218 10:05:35.019" endtime="20201218 10:05:35.021" critical="yes"></status>
+<status status="PASS" starttime="20201218 12:43:55.476" endtime="20201218 12:43:55.506" critical="yes"></status>
 </test>
-<status status="PASS" starttime="20201218 10:05:34.977" endtime="20201218 10:05:35.025"></status>
+<status status="PASS" starttime="20201218 12:43:55.444" endtime="20201218 12:43:55.523"></status>
 </suite>
 <statistics>
 <total>
