@@ -1,0 +1,8 @@
+Django                  1.10.3
+django-bootstrap3       7.1.0
+pip                     20.3.3
+PyMySQL                 0.10.1
+requests                2.12.4
+robotframework          3.0.1rc1
+robotframework-requests 0.4.6
+setuptools              51.0.0
