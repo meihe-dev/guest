@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^sec_get_event_list/', views_if_sec.sec_get_event_list, name='sec_get_event_list'),
     # ex: /api/sec_add_event/
     url(r'^sec_add_event/', views_if_sec.sec_add_event, name='sec_add_event'),
+    # ex: /api/sec_get_guest_list/
+    url(r'^sec_get_guest_list/', views_if_sec.sec_get_guest_list, name='sec_get_guest_list'),
 ]

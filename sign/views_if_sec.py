@@ -3,7 +3,8 @@ from django.http import JsonResponse
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 import base64
 import time, hashlib
-from sign.models import Event
+from sign.models import Event, Guest
+from Crypto.Cipher import AES
 
 
 # 用户认证
@@ -141,3 +142,77 @@ def sec_add_event(request):
             return JsonResponse({'status': 10024, 'message': error})
 
         return JsonResponse({'status': 200, 'message': 'add event success'})
+
+# AES加密算法
+BS = 16
+unpad = lambda s : s[0: - ord(s[-1])] # unpad匿名函数对字符串的长度进行还原
+def decryptBase64(src):
+    return base64.urlsafe_b64decode(src) # 对Base64加密字符串进行解密
+
+def decryptAES(src, key):
+    '''
+    解析AES密文
+    :param src:
+    :param key:
+    :return:
+    '''
+    src = decryptBase64(src) # 将Base64加密字符串解密为AES加密字符串
+    iv = b'1172311105789011'
+    cryptor = AES.new(key, AES.MODE_CBC, iv)
+    text = cryptor.decrypt(src).decode() # 通过decrypt
+    return unpad(text)
+
+def aes_encryption(request):
+    app_key = 'W7v4D60fds2Cmk2U'    # 服务器端与合法客户端约定的密钥app_key
+
+    if request.method == 'POST':
+        data = request.POST.get('data', '')
+    else:
+        return 'error'
+
+    # 解密
+    decode = decryptAES(data, app_key)
+    # 转化为字典
+    dict_data = json.loads(decode)
+    return dict_data
+
+def get_guest_list(request):
+    dict_data = aes_encryption(request)
+
+    if dict_data == 'error':
+        return JsonResponse({'status': 1011, 'message': 'request error'})
+
+    # 取出对应的发布会id和嘉宾手机号
+    eid = dict_data['eid']
+    phone = dict_data['phone']
+
+    if eid == '':
+        return JsonResponse({'status': 10021, 'message': 'eid cannot be empty'})
+
+    if eid != '' and phone == '':
+        datas = []
+        results = Guest.objects.filter(event_id=eid)
+        if results:
+            for result in results:
+                guest = {}
+                guest['realname'] = result.realname
+                guest['phone'] = result.phone
+                guest['email'] = result.email
+                guest['sign'] = result.sign
+                datas.append(guest)
+            return JsonResponse({'status': 200, 'message': 'success', 'data':datas})
+        else:
+            return JsonResponse({'status': 10022, 'message': 'query result is empty'})
+
+    if eid != '' and phone != '':
+        guest = {}
+        try:
+            result = Guest.objects.get(phone=phone, event_id=eid)
+        except ObjectDoesNotExist:
+            return JsonResponse({'status': 10022, 'message': 'query result is empty'})
+        else:
+            guest['realname'] = result.realname
+            guest['phone'] = result.phone
+            guest['email'] = result.email
+            guest['sign'] = result.sign
+            return JsonResponse({'status': 200, 'message': 'success', 'data': guest})
